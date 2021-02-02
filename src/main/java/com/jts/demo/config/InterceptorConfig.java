@@ -44,7 +44,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    DefaultPointcutAdvisor defaultPointcutAdvisor() {
+    DefaultPointcutAdvisor importantPointcutAdvisor() {
         log.info("Add DefaultPointcutAdvisor[{}]", importantMethodInterceptor.getClass().getName());
         DefaultPointcutAdvisor advisor = new DefaultPointcutAdvisor();
         AnnotationMatchingPointcut pointcut = new AnnotationMatchingPointcut(null, ImportantInterceptor.class);
