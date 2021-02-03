@@ -1,4 +1,4 @@
-package com.jts.demo.config;
+package com.jts.demo.interceptor.config;
 
 import com.jts.demo.interceptor.ImportantInterceptor;
 import lombok.extern.slf4j.Slf4j;
