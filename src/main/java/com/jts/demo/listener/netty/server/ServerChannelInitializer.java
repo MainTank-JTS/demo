@@ -21,6 +21,7 @@ public class ServerChannelInitializer extends ChannelInitializer<SocketChannel> 
 
     @Override
     protected void initChannel(SocketChannel socketChannel) throws Exception {
+        log.info("exec ServerChannelInitializer");
         ChannelPipeline pipe = socketChannel.pipeline();
         pipe.addLast("decoder", new StringDecoder(CharsetUtil.UTF_8));
         pipe.addLast("encoder", new StringEncoder(CharsetUtil.UTF_8));

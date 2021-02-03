@@ -17,8 +17,8 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        log.info("rec msg:[{}]", msg);
-        ctx.write(String.format("%s by Server",msg));
+        log.info("NettyServerHandler [{}] rec msg:[{}]", this, msg);
+        ctx.write(String.format("%s by Server", msg));
         ctx.flush();
     }
 
