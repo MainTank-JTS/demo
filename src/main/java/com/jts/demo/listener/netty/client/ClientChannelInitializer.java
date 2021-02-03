@@ -1,5 +1,6 @@
-package com.jts.demo.listener.netty;
+package com.jts.demo.listener.netty.client;
 
+import com.jts.demo.listener.netty.server.NettyServerHandler;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
@@ -12,17 +13,13 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 
 @Slf4j
-@Component
-public class ServerChannelInitializer extends ChannelInitializer<SocketChannel> {
-
-    @Resource
-    private NettyServerHandler nettyServerHandler;
+public class ClientChannelInitializer extends ChannelInitializer<SocketChannel> {
 
     @Override
     protected void initChannel(SocketChannel socketChannel) throws Exception {
         ChannelPipeline pipe = socketChannel.pipeline();
         pipe.addLast("decoder", new StringDecoder(CharsetUtil.UTF_8));
         pipe.addLast("encoder", new StringEncoder(CharsetUtil.UTF_8));
-        pipe.addLast(nettyServerHandler);
+        pipe.addLast(new NettyClientHandler());
     }
 }
