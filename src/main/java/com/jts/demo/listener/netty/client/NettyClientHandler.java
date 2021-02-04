@@ -4,6 +4,8 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import lombok.extern.slf4j.Slf4j;
 
+import java.nio.charset.StandardCharsets;
+
 @Slf4j
 public class NettyClientHandler extends ChannelInboundHandlerAdapter {
     @Override
@@ -14,7 +16,8 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         System.out.println(String.format("rec msg:[%s]", msg));
-        ctx.write(String.format("%s by Client",msg));
+        String res = String.format("%s by Server", msg);
+        ctx.write(res);
         ctx.flush();
         ctx.close();
     }
