@@ -24,7 +24,7 @@ public class NettyClient {
             //发送消息
             String msg = "hello,server";
             future.channel().writeAndFlush(msg);
-            System.out.println("client send msg.."+msg);
+            System.out.println(String.format("sed msg:[%s]",msg));
             // 等待连接被关闭
             future.channel().closeFuture().sync();
         } catch (InterruptedException e) {
