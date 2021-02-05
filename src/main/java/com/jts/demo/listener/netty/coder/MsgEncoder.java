@@ -1,4 +1,4 @@
-package com.jts.demo.listener.netty.client;
+package com.jts.demo.listener.netty.coder;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
@@ -12,11 +12,11 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @Slf4j
-public class ReqMsgEncoder extends MessageToByteEncoder<String> {
+public class MsgEncoder extends MessageToByteEncoder<String> {
 
     @Override
     protected void encode(ChannelHandlerContext ctx, String msg, ByteBuf out) throws Exception {
-        System.out.println("Exec ReqMsgServerEncoder.encode");
+        log.info("Exec MsgEncoder.encode");
         if(msg == null){
             throw new NullPointerException("msg");
         }

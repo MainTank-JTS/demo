@@ -21,9 +21,10 @@ public class NettyClient {
 
         try {
             ChannelFuture future = bootstrap.connect("127.0.0.1", 8090).sync();
-            System.out.println("client ready send msg..");
             //发送消息
-            future.channel().writeAndFlush("hello,server");
+            String msg = "hello,server";
+            future.channel().writeAndFlush(msg);
+            System.out.println("client send msg.."+msg);
             // 等待连接被关闭
             future.channel().closeFuture().sync();
         } catch (InterruptedException e) {

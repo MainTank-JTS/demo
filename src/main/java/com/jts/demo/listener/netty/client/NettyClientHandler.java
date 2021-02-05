@@ -16,9 +16,9 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         System.out.println(String.format("rec msg:[%s]", msg));
-        String res = String.format("%s by Server", msg);
-        ctx.write(res);
-        ctx.flush();
+        String res = String.format("%s by Client", msg);
+        ctx.writeAndFlush(res);
+        System.out.println(String.format("sed msg:[%s]", res));
         ctx.close();
     }
 

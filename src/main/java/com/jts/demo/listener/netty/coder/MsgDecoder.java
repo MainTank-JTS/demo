@@ -1,4 +1,4 @@
-package com.jts.demo.listener.netty.server;
+package com.jts.demo.listener.netty.coder;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
@@ -9,10 +9,10 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 
 @Slf4j
-public class ReqMsgDecoder extends ByteToMessageDecoder {
+public class MsgDecoder extends ByteToMessageDecoder {
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
-        log.info("Exec ReqMsgServerDecoder.decode");
+        log.info("Exec MsgDecoder.decode");
         int msgLenght = in.readInt();
         String body = null;
         if(msgLenght > 0){

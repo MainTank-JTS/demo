@@ -18,19 +18,19 @@ public class CustomerAppliacationEnventListener implements ApplicationListener {
     @Override
     public void onApplicationEvent(ApplicationEvent applicationEvent) {
         if (applicationEvent instanceof ApplicationEnvironmentPreparedEvent){
-            log.info("环境初始化！！！");
+            log.info("env init..");
         } else if (applicationEvent instanceof ApplicationPreparedEvent){
-            log.info("初始化完成！！！");
+            log.info("init completed..");
         } else if (applicationEvent instanceof ContextRefreshedEvent) {
-            log.info("应用刷新！！");
+            log.info("application refreshed..");
         } else if (applicationEvent instanceof ApplicationReadyEvent) {
-            log.info("项目启动完成！！");
+            log.info("application completed..");
         } else if (applicationEvent instanceof ContextStartedEvent) {
-            log.info("应用启动！！");
+            log.info("application started..");
         } else if (applicationEvent instanceof ContextStoppedEvent) {
-            log.info("项目停止！！");
+            log.info("application stopped..");
         } else if (applicationEvent instanceof ContextClosedEvent) {
-            log.info("应用关闭！！");
+            log.info("application closed..");
         }
     }
 }
