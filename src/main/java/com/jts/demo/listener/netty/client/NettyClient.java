@@ -22,14 +22,17 @@ public class NettyClient {
         try {
             ChannelFuture future = bootstrap.connect("127.0.0.1", 8090).sync();
             //发送消息
-            String msg = "hello,server";
-            future.channel().writeAndFlush(msg);
-            System.out.println(String.format("sed msg:[%s]",msg));
+            StringBuilder msg = new StringBuilder("hello,server,");
+            for (int i = 0; i < 1000; i++) {
+                msg.append("lallalala");
+            }
+            future.channel().writeAndFlush(msg.toString());
+            System.out.println(String.format("sed msg:[%s]", msg));
             // 等待连接被关闭
             future.channel().closeFuture().sync();
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             group.shutdownGracefully();
         }
     }

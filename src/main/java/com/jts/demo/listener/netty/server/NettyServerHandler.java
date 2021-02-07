@@ -6,8 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import java.nio.charset.StandardCharsets;
-
 @Slf4j
 @Scope("prototype")
 @Component
@@ -21,8 +19,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         log.info("NettyServerHandler [{}] rec msg:[{}]", this, msg);
         String res = String.format("%s by Server", msg);
-        ctx.write(res);
-        ctx.flush();
+        ctx.writeAndFlush(res);
     }
 
     @Override
