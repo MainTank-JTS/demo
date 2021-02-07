@@ -12,6 +12,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
 
 @Slf4j
@@ -34,7 +35,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
 
     @PostConstruct
     public void init() {
-        log.info("[{}] exec init method", InterceptorConfig.class.getName());
+        log.info("Exec init method");
     }
 
     @Override
@@ -51,5 +52,10 @@ public class InterceptorConfig implements WebMvcConfigurer {
         advisor.setPointcut(pointcut);
         advisor.setAdvice(importantMethodInterceptor);
         return advisor;
+    }
+
+    @PreDestroy
+    public void preDestroy(){
+        log.info("Exec preDestroy method");
     }
 }
