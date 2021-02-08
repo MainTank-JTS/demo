@@ -27,7 +27,7 @@ public class NettyClient {
                 msg.append("lallalala");
             }
             future.channel().writeAndFlush(msg.toString());
-            System.out.println(String.format("sed msg:[%s]", msg));
+            System.out.printf("sed msg:[%s]%n", msg);
             // 等待连接被关闭
             future.channel().closeFuture().sync();
         } catch (InterruptedException e) {

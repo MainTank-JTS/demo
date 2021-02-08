@@ -11,17 +11,19 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.net.InetSocketAddress;
 
 @Slf4j
 @Service
 public class NettyService implements ApplicationListener<ApplicationReadyEvent> {
 
-    @Resource
-    private ServerChannelInitializer serverChannelInitializer;
+    private final ServerChannelInitializer serverChannelInitializer;
 
-    public void startNettyServer(){
+    public NettyService(ServerChannelInitializer serverChannelInitializer) {
+        this.serverChannelInitializer = serverChannelInitializer;
+    }
+
+    public void startNettyServer() {
         InetSocketAddress socketAddress = new InetSocketAddress("127.0.0.1", 8090);
         //new 一个主线程组
         EventLoopGroup bossGroup = new NioEventLoopGroup(1);
@@ -41,7 +43,7 @@ public class NettyService implements ApplicationListener<ApplicationReadyEvent> 
             log.info("Server started port:{}", socketAddress.getPort());
             future.channel().closeFuture().sync();
         } catch (InterruptedException e) {
-            log.error("InterruptedException",e);
+            log.error("InterruptedException", e);
         } finally {
             //关闭主线程组
             bossGroup.shutdownGracefully();

@@ -2,25 +2,27 @@ package com.jts.demo.listener.netty.coder;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.handler.codec.ByteToMessageDecoder;
 import io.netty.handler.codec.MessageToByteEncoder;
-import io.netty.handler.codec.MessageToMessageDecoder;
-import io.netty.util.CharsetUtil;
 import lombok.extern.slf4j.Slf4j;
 
-import java.nio.charset.StandardCharsets;
-import java.util.List;
+import java.nio.charset.Charset;
 
 @Slf4j
 public class MsgEncoder extends MessageToByteEncoder<String> {
 
+    private final Charset charset;
+
+    public MsgEncoder(Charset charset) {
+        this.charset = charset;
+    }
+
     @Override
-    protected void encode(ChannelHandlerContext ctx, String msg, ByteBuf out) throws Exception {
+    protected void encode(ChannelHandlerContext ctx, String msg, ByteBuf out) {
         log.info("Exec MsgEncoder.encode");
-        if(msg == null){
+        if (msg == null) {
             throw new NullPointerException("msg");
         }
-        byte[] reqBytes = msg.getBytes(StandardCharsets.UTF_8);
+        byte[] reqBytes = msg.getBytes(charset);
         out.writeInt(reqBytes.length);
         out.writeBytes(reqBytes);
     }

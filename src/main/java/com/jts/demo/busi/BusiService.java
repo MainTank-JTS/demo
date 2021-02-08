@@ -6,14 +6,15 @@ import com.lmax.disruptor.RingBuffer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
-
 @Slf4j
 @Service
 public class BusiService {
 
-    @Resource
-    private RingBuffer<MessageBo> messageBoRingBuffer;
+    private final RingBuffer<MessageBo> messageBoRingBuffer;
+
+    public BusiService(RingBuffer<MessageBo> messageBoRingBuffer) {
+        this.messageBoRingBuffer = messageBoRingBuffer;
+    }
 
     @ImportantInterceptor("getStr")
     public String busiIndex(String param){

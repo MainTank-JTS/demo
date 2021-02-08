@@ -9,16 +9,19 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.concurrent.CustomizableThreadFactory;
 
-import javax.annotation.Resource;
 import java.util.concurrent.ThreadFactory;
 
 @Slf4j
 @Configuration
 public class DisruptorConf {
-    @Resource
-    private MessageEventFactory messageEventFactory;
-    @Resource
-    private MessageEventHandler messageEventHandler;
+
+    private final MessageEventFactory messageEventFactory;
+    private final MessageEventHandler messageEventHandler;
+
+    public DisruptorConf(MessageEventFactory messageEventFactory, MessageEventHandler messageEventHandler) {
+        this.messageEventFactory = messageEventFactory;
+        this.messageEventHandler = messageEventHandler;
+    }
 
     @Bean
     public RingBuffer<MessageBo> messageBoRingBuffer(){

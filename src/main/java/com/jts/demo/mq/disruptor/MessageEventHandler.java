@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class MessageEventHandler implements EventHandler<MessageBo> {
     @Override
-    public void onEvent(MessageBo messageBo, long l, boolean b) throws Exception {
+    public void onEvent(MessageBo messageBo, long l, boolean b) {
         if(messageBo != null ){
             log.info("Handler seq[{}],msg[{}]",l,messageBo);
         }

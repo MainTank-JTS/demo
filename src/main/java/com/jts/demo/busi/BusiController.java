@@ -16,8 +16,11 @@ import javax.annotation.Resource;
 @RequestMapping("/busi")
 public class BusiController {
 
-    @Resource
-    private BusiService busiService;
+    private final BusiService busiService;
+
+    public BusiController(BusiService busiService) {
+        this.busiService = busiService;
+    }
 
     @GetMapping(path = "/index")
     public String busiIndex(String param){

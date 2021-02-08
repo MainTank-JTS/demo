@@ -7,17 +7,17 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class NettyClientHandler extends ChannelInboundHandlerAdapter {
     @Override
-    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+    public void channelActive(ChannelHandlerContext ctx) {
         System.out.println("Netty client active..");
     }
 
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        System.out.println(String.format("rec msg:[%s]", msg));
+    public void channelRead(ChannelHandlerContext ctx, Object msg) {
+        System.out.printf("rec msg:[%s]%n", msg);
         String res = String.format("%s by Client", msg);
         try {
             ctx.writeAndFlush(res);
-            System.out.println(String.format("sed msg:[%s]", res));
+            System.out.printf("sed msg:[%s]%n", res);
         } finally {
             ctx.channel().close();
         }
@@ -25,7 +25,7 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
     }
 
     @Override
-    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
         cause.printStackTrace();
         ctx.close();
     }
