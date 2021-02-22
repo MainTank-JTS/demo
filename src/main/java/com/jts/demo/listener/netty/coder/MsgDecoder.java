@@ -20,10 +20,10 @@ public class MsgDecoder extends ByteToMessageDecoder {
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) {
         log.info("Exec MsgDecoder.decode");
-        int msgLenght = in.readInt();
+        int msgLength = in.readInt();
         String body = null;
-        if (msgLenght > 0) {
-            ByteBuf buf = in.readBytes(msgLenght);
+        if (msgLength > 0) {
+            ByteBuf buf = in.readBytes(msgLength);
             byte[] reqByte = new byte[buf.readableBytes()];
             buf.readBytes(reqByte);
             body = new String(reqByte, charset);
