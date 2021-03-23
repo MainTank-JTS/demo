@@ -58,7 +58,9 @@ public class BusiService {
             }
         }
         TblUser tblUser = tblUserDao.selectById(id);
-        log.info("id [{}],tblUser [{}]",id,tblUser);
+        log.info("Plus id [{}],tblUser [{}]",id,tblUser);
+        TblUser tblUer = tblUserDao.getById(id);
+        log.info("Sql id [{}],tblUser [{}]",id,tblUer);
         invockUserJdk().getInfo();
         invockUserEnhancer().getInfo();
         StringJoiner res = new StringJoiner("_");
