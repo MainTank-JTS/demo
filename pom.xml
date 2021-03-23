@@ -36,21 +36,33 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-log4j2</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-undertow</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-log4j2</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
+
+        <!--mybatis-->
         <dependency>
-             <groupId>org.mybatis.spring.boot</groupId>
-             <artifactId>mybatis-spring-boot-starter</artifactId>
-             <version>2.1.4</version>
-         </dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.4.0</version>
+        </dependency>
+        <!--mybatis plus extension,包含了mybatis plus core-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-extension</artifactId>
+            <version>3.4.0</version>
+        </dependency>
+
+        <!-- sharding-jdbc -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
@@ -61,10 +73,12 @@
             <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
             <version>3.1.0</version>
         </dependency>
+
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>
         </dependency>
+
         <dependency>
             <groupId>com.lmax</groupId>
             <artifactId>disruptor</artifactId>
@@ -80,11 +94,7 @@
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
         </dependency>
-        <!--<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-tomcat</artifactId>
-            <scope>provided</scope>
-        </dependency>-->
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
