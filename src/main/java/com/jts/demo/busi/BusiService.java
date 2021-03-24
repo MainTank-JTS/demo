@@ -1,5 +1,7 @@
 package com.jts.demo.busi;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jts.demo.busi.dao.TblUserDao;
 import com.jts.demo.busi.entity.TblUser;
 import com.jts.demo.interceptor.ImportantInterceptor;
@@ -13,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -57,14 +60,15 @@ public class BusiService {
                 log.warn("NumberFormatException[{}]",param,e);
             }
         }
-        TblUser tblUser = tblUserDao.selectById(id);
-        log.info("Plus id [{}],tblUser [{}]",id,tblUser);
-        TblUser tblUer = tblUserDao.getById(id);
-        log.info("Sql id [{}],tblUser [{}]",id,tblUer);
+        Page<TblUser> tblUserPage = new Page<>(1,2,true);
+        IPage<TblUser> userIPage = tblUserDao.selectPage(tblUserPage,null);
+        log.info("Page tblUserList [{}]",userIPage.getRecords());
+        TblUser tblUerBySql = tblUserDao.getById(id);
+        log.info("Sql id [{}],tblUser [{}]",id,tblUerBySql);
         invockUserJdk().getInfo();
         invockUserEnhancer().getInfo();
         StringJoiner res = new StringJoiner("_");
-        res.add("busiIndex").add(param).add(tblUser.toString());
+        res.add("busiIndex").add(param).add(tblUerBySql.toString());
         pushDisruptor(param);
         log.info("res BusiService.busiIndex[{}]",res);
         return res.toString();

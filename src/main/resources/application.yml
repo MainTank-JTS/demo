@@ -5,7 +5,7 @@ sharding:
       m1:
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: org.h2.Driver
-        url: jdbc:h2:mem:testdbsa
+        url: jdbc:h2:mem:testdbsa;DB_CLOSE_DELAY=-1
         username: sa
         password:
 spring:
