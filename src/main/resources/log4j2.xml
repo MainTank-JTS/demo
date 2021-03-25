@@ -41,8 +41,8 @@
         <Logger name="com.xuweihao" level="DEBUG" />
         <Root level="DEBUG">
             <AppenderRef ref="console"></AppenderRef>
-            <AppenderRef ref="error"></AppenderRef>
-            <AppenderRef ref="rollingFile"></AppenderRef>
+            <!--<AppenderRef ref="error"></AppenderRef>
+            <AppenderRef ref="rollingFile"></AppenderRef>-->
         </Root>
     </Loggers>
 </configuration>
