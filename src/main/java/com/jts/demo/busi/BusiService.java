@@ -60,7 +60,7 @@ public class BusiService {
                 log.warn("NumberFormatException[{}]",param,e);
             }
         }
-        Page<TblUser> tblUserPage = new Page<>(1,2,true);
+        Page<TblUser> tblUserPage = new Page<>(2,3);
         IPage<TblUser> userIPage = tblUserDao.selectPage(tblUserPage,null);
         log.info("Page tblUserList [{}]",userIPage.getRecords());
         TblUser tblUerBySql = tblUserDao.getById(id);

@@ -3,6 +3,7 @@ package com.jts.demo.busi.dao;
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.core.MybatisConfiguration;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import org.apache.ibatis.logging.log4j2.Log4j2Impl;
@@ -28,11 +29,12 @@ public class MyBatisPlusConfig {
     public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
         MybatisConfiguration conf = new MybatisConfiguration();
         conf.setLogImpl(Log4j2Impl.class);
-        
+
         MybatisSqlSessionFactoryBean sqlSessionFactory = new MybatisSqlSessionFactoryBean();
         sqlSessionFactory.setDataSource(dataSource);
         sqlSessionFactory.setConfiguration(conf);
         sqlSessionFactory.setPlugins(mybatisPlusInterceptor());
+        //sqlSessionFactory.setPlugins(new PaginationInterceptor());
         return sqlSessionFactory.getObject();
     }
 }
