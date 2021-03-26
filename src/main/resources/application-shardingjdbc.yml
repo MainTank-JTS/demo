@@ -4,6 +4,9 @@ server:
 spring:
   main:
     allow-bean-definition-overriding: true
+  h2:
+    console:
+      enabled: true
   shardingsphere:
     props:
       sql:
@@ -16,6 +19,11 @@ spring:
         url: jdbc:h2:mem:dbsa1;DB_CLOSE_DELAY=-1
         username: sa
         password:
+        initialSize: 2
+        minIdle: 1
+        maxActive: 3
+        testWhileIdle: true
+        validationQuery: SELECT 1 FROM DUAL
     sharding:
       tables:
         tbl_user:

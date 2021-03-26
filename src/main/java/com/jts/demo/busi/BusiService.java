@@ -1,5 +1,6 @@
 package com.jts.demo.busi;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jts.demo.busi.dao.TblUserDao;
@@ -15,7 +16,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -61,7 +61,9 @@ public class BusiService {
             }
         }
         Page<TblUser> tblUserPage = new Page<>(2,3);
-        IPage<TblUser> userIPage = tblUserDao.selectPage(tblUserPage,null);
+        LambdaQueryWrapper<TblUser> lambdaQueryWrapper = new LambdaQueryWrapper();
+        lambdaQueryWrapper.isNotNull(TblUser::getId);
+        IPage<TblUser> userIPage = tblUserDao.selectPage(tblUserPage,lambdaQueryWrapper);
         log.info("Page tblUserList [{}]",userIPage.getRecords());
         TblUser tblUerBySql = tblUserDao.getById(id);
         log.info("Sql id [{}],tblUser [{}]",id,tblUerBySql);
