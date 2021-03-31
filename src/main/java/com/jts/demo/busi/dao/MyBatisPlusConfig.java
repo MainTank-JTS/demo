@@ -16,6 +16,9 @@ import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 
 import javax.sql.DataSource;
 
+/**
+ * @author jts
+ */
 @Configuration
 @MapperScans(value = {@MapperScan("com.jts.demo.busi.dao")})
 public class MyBatisPlusConfig {
@@ -26,7 +29,7 @@ public class MyBatisPlusConfig {
     @Value("classpath:sql/init-shardingsphere.sql")
     private Resource dbScriptShardingsphere;
 
-    @Bean("DatabasePopulator")
+    @Bean("databasePopulator")
     @ConditionalOnProperty(value = "spring.profiles.active",havingValue = "dev",matchIfMissing = true)
     public DatabasePopulator populatorByDev(){
         ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
@@ -34,7 +37,7 @@ public class MyBatisPlusConfig {
         return populator;
     }
 
-    @Bean("DatabasePopulator")
+    @Bean("databasePopulator")
     @ConditionalOnProperty(value = "spring.profiles.active",havingValue = "shardingsphere")
     public DatabasePopulator populatorByShardingsphere(){
         ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
@@ -43,10 +46,10 @@ public class MyBatisPlusConfig {
     }
 
     @Bean
-    public DataSourceInitializer dataSourceInitializer(final DataSource dataSource,final DatabasePopulator populator){
+    public DataSourceInitializer dataSourceInitializer(final DataSource dataSource,final DatabasePopulator databasePopulator){
         DataSourceInitializer init = new DataSourceInitializer();
         init.setDataSource(dataSource);
-        init.setDatabasePopulator(populator);
+        init.setDatabasePopulator(databasePopulator);
         return init;
     }
 
@@ -57,19 +60,4 @@ public class MyBatisPlusConfig {
         return interceptor;
     }
 
-    /*@Bean
-    public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
-        MybatisConfiguration conf = new MybatisConfiguration();
-        conf.setLogImpl(Log4j2Impl.class);
-        conf.setDefaultExecutorType(ExecutorType.SIMPLE);
-        conf.setCacheEnabled(false);
-        conf.setLocalCacheScope(LocalCacheScope.STATEMENT);
-
-        MybatisSqlSessionFactoryBean sqlSessionFactory = new MybatisSqlSessionFactoryBean();
-        sqlSessionFactory.setDataSource(dataSource);
-        sqlSessionFactory.setConfiguration(conf);
-        sqlSessionFactory.setPlugins(mybatisPlusInterceptor());
-        //sqlSessionFactory.setPlugins(new PaginationInterceptor());
-        return sqlSessionFactory.getObject();
-    }*/
 }

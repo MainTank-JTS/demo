@@ -7,6 +7,9 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.nio.charset.Charset;
 
+/**
+ * @author jts
+ */
 @Slf4j
 public class MsgEncoder extends MessageToByteEncoder<String> {
 

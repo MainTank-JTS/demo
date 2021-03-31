@@ -9,6 +9,9 @@ import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.util.CharsetUtil;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * @author jts
+ */
 @Slf4j
 public class ClientChannelInitializer extends ChannelInitializer<SocketChannel> {
 

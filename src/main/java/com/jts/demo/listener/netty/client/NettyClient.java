@@ -23,7 +23,8 @@ public class NettyClient {
             ChannelFuture future = bootstrap.connect("127.0.0.1", 8090).sync();
             //发送消息
             StringBuilder msg = new StringBuilder("hello,server,");
-            for (int i = 0; i < 1000; i++) {
+            int maxCount = 1000;
+            for (int i = 0; i < maxCount; i++) {
                 msg.append("lallalala");
             }
             future.channel().writeAndFlush(msg.toString());

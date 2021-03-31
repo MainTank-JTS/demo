@@ -9,19 +9,18 @@ import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
 
+/**
+ * @author nantian
+ */
 @Slf4j
 @Component
 public class UserEnhaner {
     public User newUser(){
         Enhancer enhancer = new Enhancer();
         enhancer.setSuperclass(User.class);
-        enhancer.setCallback(new MethodInterceptor() {
-            @Override
-            public Object intercept(Object o, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable {
-                log.info("Use [{}],invock [{}]",UserEnhaner.class.getName(),method.getName());
-                Object res = methodProxy.invokeSuper(o,objects);
-                return res;
-            }
+        enhancer.setCallback((MethodInterceptor) (o, method, objects, methodProxy) -> {
+            log.info("Use [{}],invock [{}]",UserEnhaner.class.getName(),method.getName());
+            return methodProxy.invokeSuper(o,objects);
         });
         return (User)enhancer.create();
     }

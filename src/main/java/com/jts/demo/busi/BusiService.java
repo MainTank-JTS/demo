@@ -1,7 +1,8 @@
 package com.jts.demo.busi;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jts.demo.busi.dao.TblUserDao;
 import com.jts.demo.busi.entity.TblUser;
@@ -61,10 +62,10 @@ public class BusiService {
             }
         }
         Page<TblUser> tblUserPage = new Page<>(2,3);
-        LambdaQueryWrapper<TblUser> lambdaQueryWrapper = new LambdaQueryWrapper();
-        lambdaQueryWrapper.isNotNull(TblUser::getId);
-        IPage<TblUser> userIPage = tblUserDao.selectPage(tblUserPage,lambdaQueryWrapper);
-        log.info("Page tblUserList [{}]",userIPage.getRecords());
+        Wrapper<TblUser> wrapper = Wrappers.<TblUser>lambdaQuery()
+                .isNotNull(TblUser::getId);
+        IPage<TblUser> userPage = tblUserDao.selectPage(tblUserPage,wrapper);
+        log.info("Page tblUserList [{}]",userPage.getRecords());
         TblUser tblUerBySql = tblUserDao.getById(id);
         log.info("Sql id [{}],tblUser [{}]",id,tblUerBySql);
         invockUserJdk().getInfo();
@@ -88,7 +89,7 @@ public class BusiService {
     }
 
     private IUserOp invockUserJdk(){
-        userJdk.bind(new User());
+        userJdk.bind(User.builder().id("1").name("jdk").build());
         return userJdk.newUser();
     }
 

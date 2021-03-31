@@ -11,6 +11,9 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @author jts
+ */
 @Slf4j
 @Component
 public class UseTimeHandlerInterceptor implements HandlerInterceptor {

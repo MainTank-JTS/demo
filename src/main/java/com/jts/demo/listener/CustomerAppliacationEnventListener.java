@@ -12,9 +12,12 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.ContextStartedEvent;
 import org.springframework.context.event.ContextStoppedEvent;
 
+/**
+ * @author jts
+ */
 @Slf4j
 @Configuration
-public class CustomerAppliacationEnventListener implements ApplicationListener {
+public class CustomerAppliacationEnventListener implements ApplicationListener<ApplicationEvent> {
     @Override
     public void onApplicationEvent(ApplicationEvent applicationEvent) {
         if (applicationEvent instanceof ApplicationEnvironmentPreparedEvent){
