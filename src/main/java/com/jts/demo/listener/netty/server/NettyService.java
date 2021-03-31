@@ -13,6 +13,9 @@ import org.springframework.stereotype.Service;
 
 import java.net.InetSocketAddress;
 
+/**
+ * @author jts
+ */
 @Slf4j
 @Service
 public class NettyService implements ApplicationListener<ApplicationReadyEvent> {

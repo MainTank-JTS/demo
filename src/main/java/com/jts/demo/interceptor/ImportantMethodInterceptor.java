@@ -7,6 +7,9 @@ import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
 
+/**
+ * @author jts
+ */
 @Slf4j
 @Component
 public class ImportantMethodInterceptor implements MethodInterceptor {

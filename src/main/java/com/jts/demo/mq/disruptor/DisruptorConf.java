@@ -11,6 +11,9 @@ import org.springframework.scheduling.concurrent.CustomizableThreadFactory;
 
 import java.util.concurrent.ThreadFactory;
 
+/**
+ * @author jts
+ */
 @Slf4j
 @Configuration
 public class DisruptorConf {

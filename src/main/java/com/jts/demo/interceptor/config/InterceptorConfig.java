@@ -15,6 +15,9 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
 
+/**
+ * @author jts
+ */
 @Slf4j
 @Configuration
 public class InterceptorConfig implements WebMvcConfigurer {

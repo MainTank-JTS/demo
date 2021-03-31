@@ -1,7 +1,7 @@
 package com.jts.demo.proxy;
 
 /**
- * @author nantian
+ * @author jts
  */
 public interface IUserOp {
     /**
