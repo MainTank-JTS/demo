@@ -34,6 +34,7 @@ public class BusiService {
     private UserEnhaner userEnhaner;
 
     private TblUserDao tblUserDao;
+
     public BusiService(RingBuffer<MessageBo> messageBoRingBuffer) {
         this.messageBoRingBuffer = messageBoRingBuffer;
     }
@@ -54,49 +55,49 @@ public class BusiService {
     }
 
     @ImportantInterceptor("getStr")
-    public String busiIndex(String param){
-        log.info("invocked BusiService.busiIndex[{}]",param);
+    public String busiIndex(String param) {
+        log.info("invocked BusiService.busiIndex[{}]", param);
         int id = 1;
-        if(Objects.nonNull(param)){
+        if (Objects.nonNull(param)) {
             try {
                 id = Integer.parseInt(param);
-            }catch (NumberFormatException e){
-                log.warn("NumberFormatException[{}]",param,e);
+            } catch (NumberFormatException e) {
+                log.warn("NumberFormatException[{}]", param, e);
             }
         }
-        Page<TblUser> tblUserPage = new Page<>(2,3);
+        Page<TblUser> tblUserPage = new Page<>(2, 3);
         Wrapper<TblUser> wrapper = Wrappers.<TblUser>lambdaQuery()
                 .isNotNull(TblUser::getId);
-        IPage<TblUser> userPage = tblUserDao.selectPage(tblUserPage,wrapper);
-        log.info("Page tblUserList [{}]",userPage.getRecords());
+        IPage<TblUser> userPage = tblUserDao.selectPage(tblUserPage, wrapper);
+        log.info("Page tblUserList [{}]", userPage.getRecords());
         TblUser tblUerBySql = tblUserDao.getById(id);
-        log.info("Sql id [{}],tblUser [{}]",id,tblUerBySql);
+        log.info("Sql id [{}],tblUser [{}]", id, tblUerBySql);
         invockUserJdk().getInfo();
         invockUserEnhancer().getInfo();
         StringJoiner res = new StringJoiner("_");
         res.add("busiIndex").add(param).add(tblUerBySql.toString());
         pushDisruptor(param);
-        log.info("res BusiService.busiIndex[{}]",res);
+        log.info("res BusiService.busiIndex[{}]", res);
         return res.toString();
     }
 
-    private void pushDisruptor(String param){
+    private void pushDisruptor(String param) {
         long seq = messageBoRingBuffer.next();
         try {
             MessageBo messageBo = messageBoRingBuffer.get(seq);
             messageBo.setMsg(param);
-        }finally {
+        } finally {
             messageBoRingBuffer.publish(seq);
-            log.info("Seq[{}] push to disruptor",seq);
+            log.info("Seq[{}] push to disruptor", seq);
         }
     }
 
-    private IUserOp invockUserJdk(){
-        userJdk.bind(User.builder().id("1").name("jdk").build());
+    private IUserOp invockUserJdk() {
+        userJdk.bind(new User());
         return userJdk.newUser();
     }
 
-    private IUserOp invockUserEnhancer(){
+    private IUserOp invockUserEnhancer() {
         return userEnhaner.newUser();
     }
 }

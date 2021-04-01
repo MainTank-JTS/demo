@@ -4,14 +4,8 @@ import com.jts.demo.proxy.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cglib.proxy.Enhancer;
 import org.springframework.cglib.proxy.MethodInterceptor;
-import org.springframework.cglib.proxy.MethodProxy;
 import org.springframework.stereotype.Component;
 
-import java.lang.reflect.Method;
-
-/**
- * @author jts
- */
 @Slf4j
 @Component
 public class UserEnhaner {

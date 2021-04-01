@@ -1,15 +1,17 @@
 package com.jts.demo.proxy;
 
 import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author jts
  */
-@Builder
+@Data
 public class User implements IUserOp{
 
-    private final String id;
-    private final String name;
+    private String id;
+    private String name;
 
     @Override
     public String getInfo() {

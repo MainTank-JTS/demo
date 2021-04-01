@@ -1,8 +1,11 @@
 package com.jts.demo.busi.dao;
 
 import com.baomidou.mybatisplus.annotation.DbType;
+import com.baomidou.mybatisplus.autoconfigure.ConfigurationCustomizer;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+import com.jts.demo.mybatis.interceptor.MybatisInnerInterceptor;
+import com.jts.demo.mybatis.interceptor.MybatisInterceptor;
 import org.mybatis.spring.annotation.MapperScan;
 import org.mybatis.spring.annotation.MapperScans;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,33 +33,39 @@ public class MyBatisPlusConfig {
     private Resource dbScriptShardingsphere;
 
     @Bean("databasePopulator")
-    @ConditionalOnProperty(value = "spring.profiles.active",havingValue = "dev",matchIfMissing = true)
-    public DatabasePopulator populatorByDev(){
+    @ConditionalOnProperty(value = "spring.profiles.active", havingValue = "dev", matchIfMissing = true)
+    public DatabasePopulator populatorByDev() {
         ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
         populator.addScript(dbScriptDev);
         return populator;
     }
 
     @Bean("databasePopulator")
-    @ConditionalOnProperty(value = "spring.profiles.active",havingValue = "shardingsphere")
-    public DatabasePopulator populatorByShardingsphere(){
+    @ConditionalOnProperty(value = "spring.profiles.active", havingValue = "shardingsphere")
+    public DatabasePopulator populatorByShardingsphere() {
         ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
         populator.addScript(dbScriptShardingsphere);
         return populator;
     }
 
     @Bean
-    public DataSourceInitializer dataSourceInitializer(final DataSource dataSource,final DatabasePopulator databasePopulator){
+    public DataSourceInitializer dataSourceInitializer(final DataSource dataSource, final DatabasePopulator databasePopulator) {
         DataSourceInitializer init = new DataSourceInitializer();
         init.setDataSource(dataSource);
         init.setDatabasePopulator(databasePopulator);
         return init;
     }
 
-   @Bean
-   public MybatisPlusInterceptor mybatisPlusInterceptor (){
+    @Bean
+    public ConfigurationCustomizer configurationCustomizer() {
+        return configuration -> configuration.addInterceptor(new MybatisInterceptor());
+    }
+
+    @Bean
+    public MybatisPlusInterceptor mybatisPlusInterceptor() {
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
         interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.H2));
+        interceptor.addInnerInterceptor(new MybatisInnerInterceptor());
         return interceptor;
     }
 
